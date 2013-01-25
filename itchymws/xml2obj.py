@@ -47,7 +47,8 @@ def _parse_node(node):
         if node.getchildren() == [] and node.attrib == {}:
             return node.text
         else:
-            node_tree.value = node.text
+            if node.text.strip() != '':
+                node_tree.value = node.text
     for (k, v) in node.attrib.items():
         k, v = _namespace_split(k, object_dict({'value':v}))
         node_tree[k] = v
