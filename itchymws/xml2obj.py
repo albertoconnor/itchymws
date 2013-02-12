@@ -38,6 +38,7 @@ class object_dict(dict):
     def getvalue(self, item, value=None):
         return self.get(item, {}).get('value', value)
 
+
 def _parse_node(node):
     node_tree = object_dict()
     # Save attrs and text, hope there will not be a child with same name
@@ -67,6 +68,7 @@ def _parse_node(node):
 
     return node_tree
 
+
 def _namespace_split(tag, value):
     """
     Split the tag '{http://cs.sfsu.edu/csc867/myscheduler}patients'
@@ -79,10 +81,12 @@ def _namespace_split(tag, value):
 
     return (tag, value)
 
+
 def parse(file):
     """parse a xml file to a dict"""
     f = open(file, 'r')
     return fromstring(f.read())
+
 
 def fromstring(s):
     """parse a string"""
