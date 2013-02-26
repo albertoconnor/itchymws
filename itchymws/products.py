@@ -16,6 +16,19 @@ class ProductMunger(BaseMunger):
 class Products(APISection):
     _munger = ProductMunger()
     
+    def ListMatchingProducts(self, **kwargs):
+        """
+        Arguments:
+        Query="Title" It can be a title, upc, etc.
+        MarketplaceId="XXXXXX"
+        """
+        if 'MarketplaceId' not in kwargs:
+            kwargs.update(dict(MarketplaceId=self.mws.default_marketplace_id))
+        return self._request(
+            'ListMatchingProducts',
+            **kwargs
+        )
+
     def GetMyPriceForSKU(self, **kwargs):
         """
         Arguments:
@@ -48,3 +61,18 @@ class Products(APISection):
             'GetMatchingProductForId',
             **kwargs
         )
+
+    def GetLowestOfferListingsForASIN(self, **kwargs):
+        """
+        Arguments:
+        ASINList=["B0000B"] # See docs for other options
+        ItemCondition="New" # Optional
+        MarketplaceId="XXXXXX" # Optional 
+        """
+        if 'MarketplaceId' not in kwargs:
+            kwargs.update(dict(MarketplaceId=self.mws.default_marketplace_id))
+        return self._request(
+            'GetLowestOfferListingsForASIN',
+            **kwargs
+        )
+
