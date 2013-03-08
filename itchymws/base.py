@@ -54,7 +54,7 @@ class APISection(object):
     def _get_endpoint(self):
         return '/{0}/{1}'.format(self._get_endpoint_name(),self.version)
         
-    def _request(self, name, **kwargs):
+    def _request(self, name, body=None, extra_headers=None, **kwargs):
         params = dict(
             Version=self.version,
             Action=name,
@@ -66,11 +66,13 @@ class APISection(object):
         response = self._mws_request(
             'POST',
             self._get_endpoint(),
-            params
+            params,
+            body=body,
+            extra_headers=extra_headers,
         )
         return self._process_response(name, response)
 
-    def _mws_request(self, method, endpoint, params=None, host='mws.amazonservices.com'):
+    def _mws_request(self, method, endpoint, params=None, host='mws.amazonservices.com', body=None, extra_headers=None):
         formatted_params = '&'.join(['='.join((k, quote(unicode(params[k]), safe='-_.~')))
                                      for k in sorted(params)])
         formatted_params = formatted_params.encode('utf-8')
@@ -83,8 +85,14 @@ class APISection(object):
         
         params["Signature"] = calculate_signature(request_data, self.mws.mws_secret_key)
         headers = {'User-Agent': 'ItchyMWS/0.0.1 (Language=Python)'}
-        # pprint.pprint(params)
-        response = request(method, 'https://'+host+endpoint, data=params, headers=headers)
+        if extra_headers is not None:
+            headers.update(extra_headers)
+        response = request(
+            method, 
+            'https://'+host+endpoint, 
+            params=params, 
+            data=body or '', 
+            headers=headers)
         return response
     
     def _process_response(self, name, response):
@@ -93,6 +101,10 @@ class APISection(object):
         if not isinstance(resp, dict):
             return resp
         
+        if 'ErrorResponse' in resp:
+            resp.status = "Error"
+            return resp
+
         for wrap in ("{0}Response".format(name), "{0}Result".format(name)):
             if wrap in resp:
                 resp = resp[wrap]

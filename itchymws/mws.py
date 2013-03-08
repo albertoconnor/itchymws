@@ -1,3 +1,4 @@
+from feeds import Feeds
 from reports import Reports
 from fulfillment import Inbound, Inventory
 from products import Products
@@ -5,6 +6,7 @@ from products import Products
 
 class MWS(object):
     _api_sections = (
+        (u'feeds', Feeds, u'2009-01-01'),
         (u'reports', Reports, u'2009-01-01'),
         (u'inbound', Inbound, u'2010-10-01'),
         (u'inventory', Inventory, u'2010-10-01'),
