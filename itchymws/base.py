@@ -62,7 +62,6 @@ class APISection(object):
         self._api_defaults(kwargs)
         params.update(kwargs)
         params = self._munge_params(params)
-        
         response = self._mws_request(
             'POST',
             self._get_endpoint(),
@@ -87,12 +86,21 @@ class APISection(object):
         headers = {'User-Agent': 'ItchyMWS/0.0.1 (Language=Python)'}
         if extra_headers is not None:
             headers.update(extra_headers)
-        response = request(
-            method, 
-            'https://'+host+endpoint, 
-            params=params, 
-            data=body or '', 
-            headers=headers)
+        if body:
+            response = request(
+                method, 
+                'https://'+host+endpoint, 
+                params=params,
+                data=body, 
+                headers=headers
+            )
+        else:
+            response = request(
+                method, 
+                'https://'+host+endpoint, 
+                data=params, 
+                headers=headers
+            )
         return response
     
     def _process_response(self, name, response):
