@@ -62,12 +62,25 @@ class Products(APISection):
             **kwargs
         )
 
+    def GetCompetitivePricingForASIN(self, **kwargs):
+        """
+        Arguments:
+        ASINList=["B0000B"]
+        MarketplaceId="XXXXXX" # Optional
+        """
+        if 'MarketplaceId' not in kwargs:
+            kwargs.update(dict(MarketplaceId=self.mws.default_marketplace_id))
+        return self._request(
+            'GetCompetitivePricingForASIN',
+            **kwargs
+        )
+
     def GetLowestOfferListingsForASIN(self, **kwargs):
         """
         Arguments:
         ASINList=["B0000B"] # See docs for other options
         ItemCondition="New" # Optional
-        MarketplaceId="XXXXXX" # Optional 
+        MarketplaceId="XXXXXX" # Optional
         """
         if 'MarketplaceId' not in kwargs:
             kwargs.update(dict(MarketplaceId=self.mws.default_marketplace_id))

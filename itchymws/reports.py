@@ -22,7 +22,8 @@ class Reports(APISection):
     def RequestReport(self, **kwargs):
         """
         Arguments:
-        ReportType = "_GET_AFN_INVENTORY_DATA_" # Plus many more options
+        ReportType = "_GET_AFN_INVENTORY_DATA_" # Plus more options
+        StartDate = "2013-03-29T19:56:50+00:00" 
         """
         return self._request(
                 'RequestReport',
@@ -40,13 +41,14 @@ class Reports(APISection):
             )
 
     def tabbed(self, data):
-        lines = data.split("\r\n")
-        headers, data = lines[0], lines[1:]
-        ret = []
-        for line in data:
-            ret.append(dict(zip(headers.split('\t'), line.split('\t'))))
-            
-        return ret
+        if data is not None:
+            lines = data.split("\r\n")
+            headers, data = lines[0], lines[1:]
+            ret = []
+            for line in data:
+                ret.append(dict(zip(headers.split('\t'), line.split('\t'))))
+            return ret
+        return None
 
     def GetReport(self, **kwargs):
         """

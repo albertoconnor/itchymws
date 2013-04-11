@@ -23,4 +23,7 @@ def calculate_signature(request, secret):
 
 
 def timestamp():
-    return strftime("%Y-%m-%dT%H:%M:%SZ", gmtime())
+    return timeformat(gmtime())
+
+def timeformat(t):
+    return strftime("%Y-%m-%dT%H:%M:%SZ", t)
