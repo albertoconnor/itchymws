@@ -31,6 +31,9 @@ class BaseMunger(object):
                 munged[key.replace("_", ".")] = parameters[key]
         return munged
 
+    def munge_datetime(self, key, value):
+        return {key: value.strftime('%Y-%m-%dT%H:%M:%SZ')}
+
 
 class APISection(object):
     _munger = BaseMunger()
@@ -68,7 +71,7 @@ class APISection(object):
             params,
             body=body,
             extra_headers=extra_headers,
-        )
+        )       
         return self._process_response(name, response)
 
     def _mws_request(self, method, endpoint, params=None, host='mws.amazonservices.com', body=None, extra_headers=None):
@@ -104,7 +107,7 @@ class APISection(object):
         return response
     
     def _process_response(self, name, response):
-        resp = fromstring(response.content)
+        resp = fromstring(response.text)
         
         if not isinstance(resp, dict):
             return resp

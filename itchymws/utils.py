@@ -2,6 +2,7 @@ import hashlib
 import hmac
 import base64
 from time import strftime, gmtime
+from datetime import datetime
 
 
 def calculate_signature(request, secret):
@@ -25,5 +26,10 @@ def calculate_signature(request, secret):
 def timestamp():
     return timeformat(gmtime())
 
+
 def timeformat(t):
     return strftime("%Y-%m-%dT%H:%M:%SZ", t)
+
+
+def parsetime(time_string):
+    return datetime.strptime(time_string, "%Y-%m-%dT%H:%M:%S+00:00")

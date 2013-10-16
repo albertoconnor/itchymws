@@ -18,6 +18,12 @@ class Reports(APISection):
     
     def _get_endpoint(self):
         return '/'
+
+    def _process_response(self, name, response):
+        if name == "GetReport":
+            return response.text
+        else:
+            return super(Reports, self)._process_response(name, response)
     
     def RequestReport(self, **kwargs):
         """
@@ -42,11 +48,17 @@ class Reports(APISection):
 
     def tabbed(self, data):
         if data is not None:
-            lines = data.split("\r\n")
+            if u'\r\n' in data:
+                lines = data.split(u'\r\n')
+            else:
+                lines = data.split(u'\n')
             headers, data = lines[0], lines[1:]
+            keys = headers.split(u'\t')
             ret = []
             for line in data:
-                ret.append(dict(zip(headers.split('\t'), line.split('\t'))))
+                line = line.strip()
+                if line != '':
+                    ret.append(dict(zip(keys, line.split(u'\t'))))
             return ret
         return None
 
