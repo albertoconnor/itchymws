@@ -94,7 +94,7 @@ def parse(file):
 def fromstring(s, encoding='utf-8'):
     """parse a string"""
     try:
-        if s isinstance(unicode):
+        if isinstance(s, unicode):
             s = s.encode(encoding)
         t = ET.fromstring(s)
     except ET.ParseError:
