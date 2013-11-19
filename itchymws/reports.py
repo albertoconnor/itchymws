@@ -5,7 +5,10 @@ class ReportMunger(BaseMunger):
     def munge_list(self, key, value):
         if "List" in key:
             munged = {}
-            base = "{0}.{1}.".format(key, 'Id')
+            if "Type" in key:
+                base = "{0}.{1}.".format(key, 'Type')
+            else:
+                base = "{0}.{1}.".format(key, 'Id')
             for index, value in enumerate(value):
                 munged['{0}{1}'.format(base, index+1)] = value
             return munged
@@ -15,7 +18,7 @@ class ReportMunger(BaseMunger):
 
 class Reports(APISection):
     _munger = ReportMunger()
-    
+
     def _get_endpoint(self):
         return '/'
 
@@ -24,12 +27,12 @@ class Reports(APISection):
             return response.text
         else:
             return super(Reports, self)._process_response(name, response)
-    
+
     def RequestReport(self, **kwargs):
         """
         Arguments:
         ReportType = "_GET_AFN_INVENTORY_DATA_" # Plus more options
-        StartDate = "2013-03-29T19:56:50+00:00" 
+        StartDate = "2013-03-29T19:56:50+00:00"
         """
         return self._request(
                 'RequestReport',
