@@ -12,7 +12,7 @@ class MemberMunger(BaseMunger):
             else:
                 munged[key_base] = value
         return munged
-    
+
     def munge_pod(self, key, value):
     	"""
     	For more on pod, see datatypes.
@@ -36,13 +36,13 @@ def recursive_munge_pod(key, value, base=""):
             ret += recursive_munge_pod(value_key, value_dict[value_key], key)
         return ret
 
-    
+
 class  Inbound(APISection):
     _munger = MemberMunger()
-    
+
     def _get_endpoint_name(self):
         return 'FulfillmentInboundShipment'
-    
+
     def CreateInboundShipmentPlan(self, **kwargs):
         """
         Arguments:
@@ -52,12 +52,12 @@ class  Inbound(APISection):
         """
         if 'LabelPrePreference' not in kwargs:
             kwargs['LabelPrePreference'] = 'SELLER_LABEL'
-            
+
         return self._request(
             'CreateInboundShipmentPlan',
             **kwargs
         )
-    
+
     def CreateInboundShipment(self, **kwargs):
         """
         Arguments:
@@ -65,25 +65,36 @@ class  Inbound(APISection):
         InboundShipmentHeader = InboundShipmentHeader()
         InboundShipmentItems = [{SellerSKU:00000000, Quantity:3}]
         """
-            
+
         return self._request(
             'CreateInboundShipment',
             **kwargs
         )
-    
-    
+
+
 class Inventory(APISection):
     _munger = MemberMunger()
-    
+
     def _get_endpoint_name(self):
         return 'FulfillmentInventory'
-        
+
     def ListInventorySupply(self, **kwargs):
         """
         Arguments:
         SellerSkus = ["000000000"]
+        QueryStartDateTime = "2013-03-29T19:56:50+00:00"
         """
         return self._request(
-                'ListInventorySupply',
-                **kwargs
-            )
+            'ListInventorySupply',
+            **kwargs
+        )
+
+    def ListInventorySupplyByNextToken(self, **kwargs):
+        """
+        Arguments:
+        NextToken  = "IAAAAAAAAADXPS3KCMAAA0Ks4bLtAPi1kpnQmwUCwo5DwmcZ..."
+        """
+        return self._request(
+            'ListInventorySupplyByNextToken',
+            **kwargs
+        )
