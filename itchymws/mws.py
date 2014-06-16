@@ -2,6 +2,7 @@ from feeds import Feeds
 from reports import Reports
 from fulfillment import Inbound, Inventory
 from products import Products
+from orders import Orders
 
 
 class MWS(object):
@@ -10,6 +11,7 @@ class MWS(object):
         (u'reports', Reports, u'2009-01-01'),
         (u'inbound', Inbound, u'2010-10-01'),
         (u'inventory', Inventory, u'2010-10-01'),
+        (u'orders', Orders, u'2013-09-01'),
         (u'products', Products, u'2011-10-01'),
     )
     
