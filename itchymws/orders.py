@@ -12,6 +12,9 @@ class Orders(APISection):
         MarketplaceId = 'XXXXXX'
         """
         kwargs['OrderStatus.Status.1'] = 'Shipped'
+        kwargs['OrderStatus.Status.2'] = 'Unshipped'
+        kwargs['OrderStatus.Status.3'] = 'PartiallyShipped'
+
 
         if 'MarketplaceId' not in kwargs:
             kwargs['MarketplaceId.Id.1'] = self.mws.default_marketplace_id
