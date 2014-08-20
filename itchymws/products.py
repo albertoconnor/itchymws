@@ -15,14 +15,14 @@ class ProductMunger(BaseMunger):
 
 class Products(APISection):
     _munger = ProductMunger()
-    
+
     def ListMatchingProducts(self, **kwargs):
         """
         Arguments:
         Query="Title" It can be a title, upc, etc.
         MarketplaceId="XXXXXX"
         """
-        if 'MarketplaceId' not in kwargs:
+        if 'MarketplaceId' not in kwargs or kwargs['MarketplaceId'] is None:
             kwargs.update(dict(MarketplaceId=self.mws.default_marketplace_id))
         return self._request(
             'ListMatchingProducts',
@@ -34,28 +34,28 @@ class Products(APISection):
         Arguments:
         SellerSKUList=['741185344766']
         MarketplaceId="XXXXXX"
-        
+
         Note if SellerSKUList contains more than 1 item, the response is a list
-        of responses. 
+        of responses.
         """
-        if 'MarketplaceId' not in kwargs:
+        if 'MarketplaceId' not in kwargs or kwargs['MarketplaceId'] is None:
             kwargs.update(dict(MarketplaceId=self.mws.default_marketplace_id))
         return self._request(
             'GetMyPriceForSKU',
             **kwargs
         )
-    
+
     def GetMatchingProductForId(self, **kwargs):
         """
         Arguments:
         IdType="UPC" # See docs for other options
         IdList=['667443581147']
         MarketplaceId="XXXXXX"
-        
+
         Note if SellerSKUList contains more than 1 item, the response is a list
-        of responses. 
+        of responses.
         """
-        if 'MarketplaceId' not in kwargs:
+        if 'MarketplaceId' not in kwargs or kwargs['MarketplaceId'] is None:
             kwargs.update(dict(MarketplaceId=self.mws.default_marketplace_id))
         return self._request(
             'GetMatchingProductForId',
@@ -68,7 +68,7 @@ class Products(APISection):
         ASINList=["B0000B"]
         MarketplaceId="XXXXXX" # Optional
         """
-        if 'MarketplaceId' not in kwargs:
+        if 'MarketplaceId' not in kwargs or kwargs['MarketplaceId'] is None:
             kwargs.update(dict(MarketplaceId=self.mws.default_marketplace_id))
         return self._request(
             'GetCompetitivePricingForASIN',
@@ -82,7 +82,7 @@ class Products(APISection):
         ItemCondition="New" # Optional
         MarketplaceId="XXXXXX" # Optional
         """
-        if 'MarketplaceId' not in kwargs:
+        if 'MarketplaceId' not in kwargs or kwargs['MarketplaceId'] is None:
             kwargs.update(dict(MarketplaceId=self.mws.default_marketplace_id))
         return self._request(
             'GetLowestOfferListingsForASIN',
