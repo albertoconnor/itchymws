@@ -3,8 +3,6 @@ try:
 except ImportError:
     from distutils.core import setup
 
-import itchymws 
-
 packages = [
     'itchymws',
 ]
@@ -13,7 +11,7 @@ requires = ['requests']
 
 setup(
     name='itchymws',
-    version=itchymws.__version__,
+    version="0.1.0",
     description='Yet another Amazon MWS wrapper',
     long_description=open('README.md').read(),
     author='Albert O\'Connor',
