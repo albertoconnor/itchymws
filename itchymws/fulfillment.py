@@ -14,9 +14,9 @@ class MemberMunger(BaseMunger):
         return munged
 
     def munge_pod(self, key, value):
-    	"""
-    	For more on pod, see datatypes.
-    	"""
+        """
+        For more on pod, see datatypes.
+        """
         pairs = recursive_munge_pod(key, value, "")
         return dict(pairs)
 
@@ -37,7 +37,7 @@ def recursive_munge_pod(key, value, base=""):
         return ret
 
 
-class  Inbound(APISection):
+class Inbound(APISection):
     _munger = MemberMunger()
 
     def _get_endpoint_name(self):
@@ -68,6 +68,17 @@ class  Inbound(APISection):
 
         return self._request(
             'CreateInboundShipment',
+            **kwargs
+        )
+
+    def ListInboundShipmentItems(self, **kwargs):
+        """
+        Arguments:
+        ShipmentId=XXXXXXX
+        """
+
+        return self._request(
+            'ListInboundShipmentItems',
             **kwargs
         )
 
