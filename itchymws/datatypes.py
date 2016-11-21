@@ -25,4 +25,5 @@ InboundShipmentHeader = namedtuple('pod', # Plain old data
                                      'ShipFromAddress',
                                      'DestinationFulfillmentCenterId',
                                      'ShipmentStatus',
-                                     'LabelPrepPreference',])
+                                     'LabelPrepPreference',
+                                     'IntendedBoxContentsSource'])
