@@ -13,6 +13,12 @@ def calc_md5(string):
 
 
 class FeedsMunger(BaseMunger):
+    def munge_list(self, key, value):
+        munged = {}
+        for index, value in enumerate(value):
+            key_base = '{0}.Id.{1}'.format(key, index+1)
+            munged[key_base] = value
+        return munged
     pass
 
 
@@ -21,14 +27,14 @@ class Feeds(APISection):
 
     def _get_endpoint(self):
         return '/'
-    
+
     def SubmitFeed(self, feed, content_type='text/xml', **kwargs):
         """
         Arguments:
         FeedType="_POST_PRODUCT_DATA_"
         PurgeAndReplace=False
         """
-        md5 = calc_md5(feed) 
+        md5 = calc_md5(feed)
         return self._request(
             'SubmitFeed',
             body=feed,
