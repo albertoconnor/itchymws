@@ -1,7 +1,19 @@
 from base import APISection, BaseMunger
 
 
+class OrderMunger(BaseMunger):
+    def munge_list(self, key, value):
+        munged = {}
+        for index, value in enumerate(value):
+            key_base = '{0}.Id.{1}'.format(key, index+1)
+            munged[key_base] = value
+        return munged
+    pass
+
+
 class Orders(APISection):
+    _munger = OrderMunger()
+
     def _get_endpoint_name(self):
         return 'Orders'
 
@@ -14,7 +26,6 @@ class Orders(APISection):
         kwargs['OrderStatus.Status.1'] = 'Shipped'
         kwargs['OrderStatus.Status.2'] = 'Unshipped'
         kwargs['OrderStatus.Status.3'] = 'PartiallyShipped'
-
 
         if 'MarketplaceId' not in kwargs:
             kwargs['MarketplaceId.Id.1'] = self.mws.default_marketplace_id
