@@ -7,7 +7,11 @@ packages = [
     'itchymws',
 ]
 
-requires = ['requests']
+requires = [
+    'requests',
+    'pytz',
+    'python-dateutil',
+]
 
 setup(
     name='itchymws',
