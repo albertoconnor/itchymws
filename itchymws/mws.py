@@ -1,8 +1,8 @@
-from feeds import Feeds
-from reports import Reports
-from fulfillment import Inbound, Inventory
-from products import Products
-from orders import Orders
+from .feeds import Feeds
+from .reports import Reports
+from .fulfillment import Inbound, Inventory
+from .products import Products
+from .orders import Orders
 
 
 class MWS(object):

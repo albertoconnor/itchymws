@@ -1,7 +1,7 @@
 import hashlib
 import base64
 
-from base import APISection, BaseMunger
+from .base import APISection, BaseMunger
 
 
 def calc_md5(string):

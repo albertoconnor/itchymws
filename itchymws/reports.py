@@ -1,6 +1,7 @@
 import csv
 from io import BytesIO
-from base import APISection, BaseMunger
+
+from .base import APISection, BaseMunger
 
 
 stupid = u'''\ufeff"Includes Amazon Marketplace, Fulfillment by Amazon (FBA), and Amazon Webstore transactions"\n"All amounts in USD, unless specified"\n"Definitions:"\n"Sales tax collected: Includes sales tax collected from buyers for product sales, shipping, and gift wrap."\n"Selling fees: Includes variable closing fees, per-item fees, and referral fees."\n"Other transaction fees: Includes shipping chargebacks, shipping holdbacks, and sales tax collection fees."\n"Other: Includes non-order transaction amounts. For more details, see the ""Type"" and ""Description"" columns for each order ID."\n'''

@@ -1,4 +1,4 @@
-from base import APISection, BaseMunger
+from .base import APISection, BaseMunger
 
 
 class OrderMunger(BaseMunger):
