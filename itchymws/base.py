@@ -1,9 +1,9 @@
-from urllib import quote
+from urllib.parse import quote
 
 from requests import request
 
-from xml2obj import fromstring
-from utils import calculate_signature, timestamp
+from .xml2obj import fromstring
+from .utils import calculate_signature, timestamp
 
 
 class BaseMunger(object):
