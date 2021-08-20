@@ -78,7 +78,6 @@ class APISection(object):
         formatted_params = '&'.join(
             ['='.join((k, quote(str(params[k]), safe='-_.~'))) for k in sorted(params)]
         )
-        formatted_params = formatted_params.encode('utf-8')
         request_data = [
             method,
             host,
