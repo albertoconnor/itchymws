@@ -19,8 +19,8 @@ def calculate_signature(request, secret):
 
     request should be a list containing strings that represent each line above
     """
-    key = "\n".join(request).encode('utf-8')
-    signature = hmac.new(secret, key, hashlib.sha256).digest()
+    key = "\n".join(request)
+    signature = hmac.new(secret.encode('utf-8'), key, hashlib.sha256).digest()
     return base64.b64encode(signature)
 
 
