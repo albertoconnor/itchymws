@@ -94,11 +94,11 @@ def parse(file):
 def fromstring(s, encoding='utf-8'):
     """parse a string"""
     try:
-        if isinstance(s, unicode):
+        if isinstance(s, str):
             s = s.encode(encoding)
         t = ET.fromstring(s)
     except ET.ParseError:
         return s
-    
+
     root_tag, root_tree = _namespace_split(t.tag, _parse_node(t))
     return object_dict({root_tag: root_tree})
