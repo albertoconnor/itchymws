@@ -76,7 +76,7 @@ class APISection(object):
 
     def _mws_request(self, method, endpoint, params=None, host='mws.amazonservices.com', body=None, extra_headers=None):
         formatted_params = '&'.join(
-            ['='.join((k, quote(unicode(params[k]), safe='-_.~'))) for k in sorted(params)]
+            ['='.join((k, quote(str(params[k]), safe='-_.~'))) for k in sorted(params)]
         )
         formatted_params = formatted_params.encode('utf-8')
         request_data = [
